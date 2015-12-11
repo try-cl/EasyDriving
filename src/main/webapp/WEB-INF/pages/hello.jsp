@@ -12,6 +12,6 @@
 </head>
 <body>
   <h1>Hello</h1>
-  hello,javaweb!
+  hello,java!
 </body>
 </html>
