@@ -4,13 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by hexing on 15-12-11.
+ * Created by hexing on 15-12-15.
  */
 @Controller
-public class HelloController {
-    @RequestMapping("")
-    public String getHello(){
-
-        return "hello";
-    }
+@RequestMapping("practice")
+public class PracticeController {
 }

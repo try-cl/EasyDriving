@@ -3,9 +3,8 @@ package com.easyDriving.dao;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by hexing on 15-12-11.
+ * Created by hexing on 15-12-15.
  */
 @Repository
-public class HelloDaoImp implements HelloDao{
-
+public class ImageDaoImp {
 }
