@@ -12,6 +12,7 @@ public class Discuss {
     private String d_content;
     private Date d_time;
 
+
     public int getD_id() {
         return d_id;
     }

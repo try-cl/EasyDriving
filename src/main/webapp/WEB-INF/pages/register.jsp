@@ -12,12 +12,14 @@
     <title>注册</title>
 </head>
 <body>
-  <form>
+  <form id="register" action="user/regist" method="post">
     邮  箱:<input type="email" name="email"/><br/>
     姓  名:<input type="text" name="name"/><br/>
     密  码:<input type="password" name="password"/><br/>
     确认密码:<input type="password" name="password1"/><br/>
-    <input type="submit" value="提交"/><br/>
+    <input type="submit"  value="提交"/><br/>
   </form>
+
 </body>
+
 </html>

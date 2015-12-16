@@ -7,6 +7,7 @@ public class User {
     private int u_id; //自增
     private String u_flag; //'0'代表管理员,'1'代表用户
     private String u_image;
+    private String u_name;
     private String u_email;
     private String u_phonenum;
     private String u_sex;
@@ -33,6 +34,13 @@ public class User {
         return u_image;
     }
 
+    public String getU_name() {
+        return u_name;
+    }
+
+    public void setU_name(String u_name) {
+        this.u_name = u_name;
+    }
     public void setU_image(String u_image) {
         this.u_image = u_image;
     }
