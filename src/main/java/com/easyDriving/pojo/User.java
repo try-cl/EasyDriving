@@ -13,6 +13,25 @@ public class User {
     private String u_sex;
     private String u_address;
     private String u_password;
+    private String u_state;//用户是否激活
+    private String u_acticode;//随机激活码
+
+
+    public String getU_state() {
+        return u_state;
+    }
+
+    public void setU_state(String u_state) {
+        this.u_state = u_state;
+    }
+
+    public String getU_acticode() {
+        return u_acticode;
+    }
+
+    public void setU_acticode(String u_acticode) {
+        this.u_acticode = u_acticode;
+    }
 
     public int getU_id() {
         return u_id;

@@ -10,10 +10,12 @@ import org.apache.commons.mail.HtmlEmail;
 public class MailSend {
     private static MailSend mailSend;
     private MailSend(){}
-    public static void SendMail(String to){
+    public static void SendMail(String to,String name,String acticode){
         if(mailSend == null){
             mailSend = new MailSend();
         }
+        String controller = "http://localhost:8080/EasyDriving/user/validate?name="+name+"&acticode="+acticode;
+        String href = "validate?name="+name+"&acticode="+acticode;
         HtmlEmail email = new HtmlEmail();
         email.setHostName("smtp.qq.com");
         email.setSmtpPort(465);
@@ -23,8 +25,7 @@ public class MailSend {
         try {
             email.setFrom("1776898728@qq.com", "1776898728");
             email.setSubject("subject中文");
-            email.setMsg("https://www.baidu.com/");
-            email.setHtmlMsg("起床啦,别忘拿实验报告!!!");
+            email.setHtmlMsg("<a href=" + controller + ">" + href + "</a>");
             email.addTo(to);
             email.send();
         } catch (EmailException e) {

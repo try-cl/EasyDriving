@@ -2,6 +2,8 @@ package com.easyDriving.controller;
 
 import com.easyDriving.pojo.User;
 import com.easyDriving.service.UserService;
+import com.easyDriving.utils.MailSend;
+import com.easyDriving.utils.Md5;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by hexing on 15-12-15.
@@ -26,27 +30,61 @@ public class UserController {
 
         return "register";
     }
+
     @RequestMapping(value = "regist",method = RequestMethod.POST)
-    public @ResponseBody JSONObject register(@RequestParam String email,@RequestParam String name,@RequestParam String password,@RequestParam String password1) throws IOException {
+    public @ResponseBody JSONObject doRegist(@RequestParam String u_email,@RequestParam String u_name,@RequestParam String u_password) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        if (userService.emailIsEqual(email)!=0){
-            jsonObject.put("email", "0");
+        if (userService.emailIsEqual(u_email)!=0){
+            jsonObject.put("result", "email");
             System.out.println(jsonObject.toString());
             return jsonObject;
         }
-        if(userService.nameIsEqual(name)!=0) {
-            jsonObject.put("name","1");
+        if(userService.nameIsEqual(u_name)!=0) {
+            jsonObject.put("result","name");
             System.out.println(jsonObject.toString());
             return jsonObject;
         }
+        Random random = new Random();
+        String str = String.valueOf(random.nextInt());
+        System.out.println("随机"+str);
+        str = Md5.getMd5(str);
         User user = new User();
         user.setU_flag("0");
-        user.setU_email(email);
-        user.setU_name(name);
-        user.setU_password(password);
+        user.setU_state("0");
+        user.setU_email(u_email);
+        user.setU_name(u_name);
+        user.setU_password(u_password);
+        user.setU_acticode(str);
         userService.insertUser(user);
-        jsonObject.put("success", "2");
+        jsonObject.put("result", "success");
+        MailSend.SendMail(u_email,u_name,str);
         System.out.println(jsonObject.toString());
+        return jsonObject;
+    }
+
+    @RequestMapping("validate")
+    public @ResponseBody JSONObject doValidate(@RequestParam String name,@RequestParam String acticode) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        String u_acticode = userService.getActicode(name);
+        if (u_acticode.equals(acticode)){
+            jsonObject.put("result","success");
+        }else {
+            jsonObject.put("result","fail");
+        }
+        System.out.println(jsonObject.toString());
+        return jsonObject;
+    }
+
+    @RequestMapping(value = "login",method = RequestMethod.POST)
+    public @ResponseBody JSONObject doLogin(@RequestParam String u_email,@RequestParam String u_password,HttpSession session) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        if(userService.doLogin(u_email,u_password)==1){
+            jsonObject.put("result","success");
+        }else {
+            jsonObject.put("result","fail");
+        }
+        System.out.println(jsonObject.toString());
+
         return jsonObject;
     }
 }

@@ -1,0 +1,64 @@
+/* 
+* @Author: anchen
+* @Date:   2015-12-13 22:12:20
+* @Last Modified by:   anchen
+* @Last Modified time: 2015-12-16 19:43:12
+*/
+html,body,div,form,h3{
+    margin:0;
+    padding:0;
+}
+body{
+    background-color:#fff;
+}
+.content{
+    width:80%;
+    height:500px;
+
+    margin:100px auto;
+    border:1px solid #ccc;
+}
+.content .fill_form{
+    border:0;
+    margin:0;
+    padding:0;
+}
+.fill_form .form_title{
+    width:100%;
+    height:45px;
+
+    background: -webkit-linear-gradient(#a1afc9, #177cb0); 
+    background: -o-linear-gradient(#a1afc9,#177cb0);  
+    background: -moz-linear-gradient(#a1afc9, #177cb0); 
+    background: linear-gradient(#a1afc9, #177cb0);
+}
+/*.content input[type="text"],
+.content input[type="password"],
+.content input[type="submit"]{
+    width:350px;
+    height:35px;
+    line-height: 35px;
+
+    font-size:14px;
+    text-indent:1rem;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border:1px solid #D7D7D7;
+    border-radius:2px;
+    color:#ccc;
+
+    margin-bottom:10px;
+}
+.content input[type="radio"]{
+    width:16px;
+    height:16px;
+
+    margin: 3px 3px 0px 5px;
+    outline:none;
+}
+.content label{
+    padding-left: 20px;
+    cursor: pointer;
+}
+*/

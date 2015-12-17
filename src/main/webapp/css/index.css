@@ -1,0 +1,195 @@
+/* 
+* @Author: anchen
+* @Date:   2015-12-12 19:15:21
+* @Last Modified by:   anchen
+* @Last Modified time: 2015-12-16 22:38:54
+*/
+/*banner*/
+.head_banner{
+    width:100%;
+    height:420px;
+    margin-top:50px;
+
+    position:relative;
+    top:0;
+    left:0;
+
+    background-color:#00BCD4;
+    overflow:hidden;
+}
+.head_banner .pic_list{
+    position:absolute;
+}
+.head_banner .warp{
+    position:relative;
+    
+    width:90%;
+    margin:0 auto;
+}
+/*登录、注册*/
+.warp .user_login{
+    width:30%;
+    max-height:380px;
+    
+    position:absolute;
+    top:30px;
+    right:0;  
+
+    background-color: rgba(255,255,255,1);
+}
+#tab{
+    width:100%;
+    position:relative;
+}
+#tab ul {
+    width:100%;
+    height:44px;
+}
+#tab ul li {
+    float: left;
+
+    width:50%;
+    height:44px;
+    line-height:44px;
+
+    border-top:1px solid #d4d4d4;
+    border-bottom:1px solid #d4d4d4;
+    text-align:center;
+}
+#tab li a{
+    float: left;
+    
+    width:100%;
+    height:44px;
+    color:#999;
+    font-weight:700;
+    
+}
+#tab .active,#tab .active a{
+    color:#fff;
+    font-weight:700;
+
+    background-color:#00BCD4;
+}
+#tab .tab_warp{
+    width:100%;
+
+    position: relative;
+    overflow: hidden;
+    margin-left: 1px;
+}
+#tab .box {
+    padding:20px;
+    overflow: hidden;
+    display:none;
+}
+#tab input[type="text"],
+#tab input[type="password"],
+#tab input[type="submit"],
+.login_btn{
+    width:100%;
+    height:35px;
+    line-height: 35px;
+
+    font-size:14px;
+    text-indent:1rem;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border:1px solid #D7D7D7;
+    border-radius:2px;
+    color:#ccc;
+
+    margin-bottom:10px;
+}
+#tab input[type="radio"]{
+    width:16px;
+    height:16px;
+
+    margin: 3px 3px 0px 5px;
+    outline:none;
+}
+#tab label{
+    padding-left: 20px;
+    cursor: pointer;
+}
+#tab input[type="submit"],
+.login_btn{
+    margin-top:10px;
+
+    color: #fff;
+    font-size: 16px;
+    outline:none;
+
+    background-image: -o-linear-gradient(bottom,#00BCD4 0,#60C7D1 100%);
+    background-image: -webkit-linear-gradient(bottom,#00BCD4 0,#60C7D1 100%);
+    background-image: -webkit-gradient(linear,left bottom,left top,from(#00BCD4),to(#60C7D1));
+    background-image: linear-gradient(bottom,#00BCD4 0,#60C7D1 100%);
+    -webkit-box-shadow: inset 0 1px 0 rgba(176,223,243,.75);
+    box-shadow: inset 0 1px 0 rgba(176,223,243,.75);
+    cursor: pointer;
+    text-align: center;
+    background-color: #00BCD4;
+    word-spacing: 35px;
+}
+.tab_warp .box .user_type,
+.tab_warp .box .safe {
+    position:relative;
+    color: #666;
+}
+.tab_warp .box .safe .forget_pw{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+}
+.content{
+    background-color:#fff;
+}
+.content section{
+    width:90%;
+    height:150px;
+
+    margin:0 auto;
+    padding-top:45px;
+    display:table;
+    vertical-align:middle;
+}
+.content section li{
+    width:25%;
+    height:auto;
+
+    display:table-cell;
+}
+.content section a{
+    display:inline-block;
+
+    width:120px;
+    height:120px;
+    border-radius:65px;
+
+    background-color:#00BCD4;
+}
+.content .block{
+    width:90%;
+    height:350px;
+
+    margin:0 auto;
+    border:1px solid #00BCD4;
+}
+/*向下的小三角形*/
+.arrow-down{
+    width:0; 
+    height:0; 
+
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-top:5px solid #ccc;
+}
+.msg{
+    color:#ff2121;
+    font-size:9px;
+    text-indent:1rem;
+    
+    padding:3px 0;
+}    

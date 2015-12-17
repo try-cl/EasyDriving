@@ -15,22 +15,22 @@ import java.io.IOException;
 public class UserDaoImp implements UserDao{
     //验证注册时是否已有重名用户
     @Override
-    public int nameIsEqual(String name) throws IOException {
+    public int nameIsEqual(String u_name) throws IOException {
         SqlSession sqlSession = MybatisUtils.getSession();
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            return userMapper.nameIsEqual(name);
+            return userMapper.nameIsEqual(u_name);
         }finally {
             sqlSession.close();
         }
     }
     //验证注册时是否邮箱已经注册
     @Override
-    public int emailIsEqual(String email) throws IOException {
+    public int emailIsEqual(String u_email) throws IOException {
         SqlSession sqlSession = MybatisUtils.getSession();
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            return userMapper.emailIsEqual(email);
+            return userMapper.emailIsEqual(u_email);
         }finally {
             sqlSession.close();
         }
@@ -44,6 +44,30 @@ public class UserDaoImp implements UserDao{
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             userMapper.insertUser(user);
             sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //验证邮箱,获取验证码
+    @Override
+    public String getActicode(String u_name) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.getActicode(u_name);
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //验证登录
+    @Override
+    public int doLogin(String u_email, String u_password) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.doLogin(u_email,u_password);
         }finally {
             sqlSession.close();
         }

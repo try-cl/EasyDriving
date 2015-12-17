@@ -17,18 +17,30 @@ public class UserServiceImp implements UserService{
 
     //验证注册时是否已有重名用户
     @Override
-    public int nameIsEqual(String name) throws IOException {
-        return userDao.nameIsEqual(name);
+    public int nameIsEqual(String u_name) throws IOException {
+        return userDao.nameIsEqual(u_name);
     }
     //验证注册时是否邮箱已经注册
     @Override
-    public int emailIsEqual(String email) throws IOException {
-        return userDao.emailIsEqual(email);
+    public int emailIsEqual(String u_email) throws IOException {
+        return userDao.emailIsEqual(u_email);
     }
 
     //注册,插入用户信息
     @Override
     public void insertUser(User user) throws IOException {
         userDao.insertUser(user);
+    }
+
+    //验证邮箱,获取验证码
+    @Override
+    public String getActicode(String u_name) throws IOException {
+        return userDao.getActicode(u_name);
+    }
+
+    //验证登录
+    @Override
+    public int doLogin(String u_email, String u_password) throws IOException {
+        return userDao.doLogin(u_email,u_password);
     }
 }

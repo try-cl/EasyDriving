@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>轻松驾</title>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" media="screen and (min-width: 768px)" href="css/style.css">
+        <link type="text/css" rel="stylesheet" media="screen and (min-width: 768px)" href="css/index.css">
+     <!--    <script type="text/javascript" src="js/jquery-1.11.3.min.js" charset="utf-8"></script> -->
+        <script src="js/validForms.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="nav">
+                <div class="warp clearfix"> 
+                <div class="logo"><a>轻松驾</a></div>
+                <ul class="nav_style">
+                    <li class="current"><a href="#" title="">首页</a></li>
+                    <li><a href="" title="找驾校">找驾校</a></li>
+                    <li><a href="" title="找陪练">找陪练</a></li>
+                    <li><a href="" title="在线课堂">在线课堂</a></li>
+                    <li><a href="" title="资讯">资讯</a></li>
+                    <li><a href="" title="社区">社区</a></li>
+                </ul>
+                <!-- ul end -->
+                <div class="about_us"><a href="" title="关于我们">关于我们</a></div>
+                <a class="search_btn_click" id="searchBtnClick">搜索</a>
+                </div>
+                <!-- ./nav_width -->
+            </nav> 
+            <!-- nav end   -->
+        </header>
+        <!-- /header -->
+            <div class="search_box" id="search_box" style="display:none;">
+                <form name="form1">
+                    <input type="search" placeholder="输入关键词">
+                    <button type="submit" class="search_btn">搜索</button>
+                </form>
+            </div>
+            <div class="head_banner">
+                <div class="pic_list">
+                    <ul>
+                        <li><img src="images/text.jpg" height="500" width="1920"></li>
+                    </ul>
+                </div>
+                <!-- ./pic_list -->
+                <div class="warp">
+                    <div class="user_login">
+                        <div id="tab">
+                            <ul class="clearfix">
+                                    <li class="active"><a href="#" title="">注册</a></li>
+                                    <li><a href="#" title="">登录</a></li>
+                            </ul>
+                            <div class="tab_warp">
+                               <div class="box">
+                                   <form name="form2" method="post">
+                                       <input type="text" name="user_name" value="" placeholder="用户名">
+                                       <input type="text" name="user_email" value="" placeholder="邮箱">
+                                       <input type="password" name="user_password" id="pwd1" value="" placeholder="设置密码">
+                                       <input type="password" name="user_password" id="pwd2" value="" placeholder="确定密码">
+                                       <input type="submit" id="signUp" name="submit" value="免费注册">
+                                   </form>
+                                </div>
+                                <!-- sign up-end  -->
+                                <form class="box" name="form3">
+                                        <input type="text" name="user_name" placeholder="用户名">
+                                        <input type="password" name="user_password" placeholder="密码">
+                                        <div class="safe">
+                                            <span>
+                                                <lable><input type="checkbox" checked="checked">自动登录</lable>
+                                            </span>
+                                            <span class="forget_pw">
+                                                <a>忘记密码</a>
+                                            </span>
+                                        </div>
+                                        <!-- ./safe -->
+                                        <input type="submit" name="submit" value="登录">
+                                </form>
+                                <!-- sign in-end  -->
+                            </div>
+                            <!-- ./tab_warp -->
+                        </div>
+                        <!-- ./login_style -->
+                    </div>
+                    <!-- ./user_login -->
+                </div>
+                <!-- sign in/sign up -->
+            </div>
+            <!-- ./head_banner -->
+        <div class="content">
+            <!-- 模块内容-导航 -->
+            <section >
+                <ul>
+                    <li><a title="驾校查询"></a></li>
+                    <li><a title="报名须知"></a></li>
+                    <li><a title="学车流程"></a></li>
+                    <li><a title="最新新闻"></a></li>
+                    <li ><a title="站内公告"></a></li>
+                </ul>
+            </section>
+            <!-- 第一部分:驾校查询 -->
+            <div class="block" id="Driving">
+                <span><h3>驾校查询</h3></span>
+                <div class="localtion">
+                    <span id="city">西安市</span>
+                    <span class="arrow-down"></span>
+                </div>
+                <!-- ./location -->
+                <div class="Driving_list" id="Driving_list">
+                    <ul>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                        <li><a></a></li>
+                    </ul>
+                </div>
+                <!-- ./Driving_list -->
+            </div>
+            <!-- */Driving -->
+            <div class="block">
+            </div>
+        </div>
+        <!-- ./content -->
+        <footer>  
+        </footer>
+        <!-- footer-end -->
+    </body>
+</html>
