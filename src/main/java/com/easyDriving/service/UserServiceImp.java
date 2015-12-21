@@ -43,4 +43,40 @@ public class UserServiceImp implements UserService{
     public int doLogin(String u_email, String u_password) throws IOException {
         return userDao.doLogin(u_email,u_password);
     }
+
+    //是否存在该邮箱
+    @Override
+    public int exitEmail(String u_email) throws IOException {
+        return userDao.exitEmail(u_email);
+    }
+
+    //忘记密码,添加验证邮箱的激活码
+    @Override
+    public void setFacticode(String u_email, String u_facticode) throws IOException {
+        userDao.setFacticode(u_email,u_facticode);
+    }
+
+    //忘记密码,用过验证邮箱重设密码
+    @Override
+    public String getFacticode(String u_email) throws IOException {
+        return userDao.getFacticode(u_email);
+    }
+
+    //验证邮箱成功,修改标志位
+    @Override
+    public void modifyState() throws IOException {
+        userDao.modifyState();
+    }
+
+    //密码忘记,验证邮箱成功,修改标志位
+    @Override
+    public void modifyForget() throws IOException {
+        userDao.modifyForget();
+    }
+
+    //修改密码
+    @Override
+    public void setPassword(String u_email, String u_password) throws IOException {
+        userDao.setPassword(u_email,u_password);
+    }
 }

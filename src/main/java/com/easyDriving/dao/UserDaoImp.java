@@ -73,5 +73,76 @@ public class UserDaoImp implements UserDao{
         }
     }
 
+    //是否存在该邮箱
+    @Override
+    public int exitEmail(String u_email) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.exitEmail(u_email);
+        }finally {
+            sqlSession.close();
+        }
+    }
 
+    //忘记密码,添加验证邮箱的激活码
+    @Override
+    public void setFacticode(String u_email, String u_facticode) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.setFacticode(u_email,u_facticode);
+            sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //忘记密码,用过验证邮箱重设密码
+    @Override
+    public String getFacticode(String u_email) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            return userMapper.getFacticode(u_email);
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //验证邮箱成功,修改标志位
+    @Override
+    public void modifyState() throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.modifyState();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //密码忘记,验证邮箱成功,修改标志位
+    @Override
+    public void modifyForget() throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.modifyForget();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    //修改密码
+    @Override
+    public void setPassword(String u_email, String u_password) throws IOException {
+        SqlSession sqlSession = MybatisUtils.getSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            userMapper.setPassword(u_email,u_password);
+        }finally {
+            sqlSession.close();
+        }
+    }
 }

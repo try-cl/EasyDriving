@@ -19,4 +19,21 @@ public interface UserService {
     //验证登录
     public int doLogin(String u_email,String u_password) throws IOException;
 
+    //是否存在该邮箱
+    public int exitEmail(String u_email) throws IOException;
+
+    //忘记密码,添加验证邮箱的激活码
+    public void setFacticode(String u_email,String u_facticode) throws IOException;
+
+    //忘记密码,用过验证邮箱重设密码
+    public String getFacticode(String u_email) throws IOException;
+
+    //验证邮箱成功,修改标志位
+    public void modifyState() throws IOException;
+
+    //密码忘记,验证邮箱成功,修改标志位
+    public void modifyForget() throws IOException;
+
+    //修改密码
+    public void setPassword(String u_email,String u_password) throws IOException;
 }

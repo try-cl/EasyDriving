@@ -17,6 +17,7 @@
     姓  名:<input type="text" name="u_name"/><br/>
     密  码:<input type="password" name="u_password"/><br/>
     确认密码:<input type="password" name="u_password1"/><br/>
+    验证码:<input type="text" name="verifycode"><img src="code/play" /><br/>
     <input type="submit"  value="提交"/><br/>
   </form>
 
