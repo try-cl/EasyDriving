@@ -1,150 +1,80 @@
-/* 
-* @Author: anchen
-* @Date:   2015-12-13 15:27:59
-* @Last Modified by:   anchen
-* @Last Modified time: 2015-12-17 21:02:15
-*/
-function addLoadEvent(func){ 
-    var oldonload = window.onload; 
-    if (typeof window.onload != 'function') { 
-    window.onload = func; 
-    } 
-    else { 
-    window.onload = function(){ 
-    oldonload(); 
-    func(); 
-    } 
-   } 
-}
-window.onload=function(){
-    $('signUp').onclick=function(){
+$(document).ready(function(){
+        $("#tab li").click(function(){
+        $("#tab li").eq($(this).index()).addClass("active").siblings().removeClass('active');
+        $(".box").hide().eq($(this).index()).show();
+
+        });
+
+      $("#signUp").click(function(){
         if(!validate()){
             document.form2.onsubmit=function(){
                 return false;
             }
         }
         else{
-            document.form2.onsubmit=function(){
-                sendDate();
-                return true;
-            }
+            addUser();
         }
-    }
-}
-function sendDate(){
-    var xmlhttp;
-    var form2='{"result":"email|name|success";}';
-    var obj = eval ("(" + form2 + ")");
-    if(window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-         xmlhttp=new XMLHttpRequest();
      }
-    else{// code for IE6, IE5
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange=function(){
-        if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            obj.result=xmlhttp.responseText;
-        }
-    }
-    xmlhttp.open("POST","user/regist",true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("u_email&u_name&u_password");
-    if(obj.result=='success'){
-        alert("注册成功！");
-    }
-    else if(obj.result=='email'){
-        alert("注册失败，邮箱已存在！");
-    }
-     else if(obj.result=='name'){
-        alert("注册失败，用户名已存在！");
-    }
-}
-function $(id) { return document.getElementById(id);}
-function Tab(){
-    var oTab=$('tab');
-    var aLi=oTab.getElementsByTagName('li');
-    var aA=oTab.getElementsByTagName('ul')[0].getElementsByTagName('a');
-    var aDiv=getByClass(oTab, 'box');
-    var i=0;
-    
-    aDiv[0].style.display='block';
-    
-    for(i=0; i<aLi.length; i++){
-        aLi[i].index=i;
-        aLi[i].onclick=function(){
-            for(i=0; i<aLi.length; i++){
-                aLi[i].className='';
-                aDiv[i].style.display='none';
+        );
+        validForm2();
+
+});
+function addUser(){
+        var user={
+            u_email:$("#user_email").val(),
+            u_name:$("#user_name").val(),
+            u_password:$("#pwd1").val()
+        };
+
+        $.ajax({
+            url:'http://localhost:8080/EasyDriving/user/regist',
+            data:user,
+            type:'post',
+            dataType:"json",
+            success:function(r){
+                alert(r.result);
+
+                //if(result=="success"){
+                //    alert("注册成功！");
+                //}else if(result=="email"){
+                //    alert("注册失败，邮箱已存在！");
+                //
+                //}else if(result=="name"){
+                //    alert("注册失败，用户名已存在！");
+                //}
             }
-            this.className='active';
-            aDiv[this.index].style.display='block';
-        };
-        aA[i].onfocus=function(){this.blur();
-        };
+        });
     }
-}
-function getByClass(oParent, sClassName){
-    var aElm=oParent.getElementsByTagName('*');
-    var aArr=[];
-    for(var i=0; i<aElm.length; i++)
-    {
-        if(aElm[i].className==sClassName)
-        {
-            aArr.push(aElm[i]);
-        }
-    }
-    return aArr;
-}
-function searchBox(){
-    // var isOut = true;
-    // var other = window.document;
-    var dom=$('search_box');
-    // other.onclick = function(){
-    //     if(isOut){
-    //         dom.style.display ='none';
-    //     }
-    //     isOut = true;
-    // }
-    $('searchBtnClick').onclick=function(){
-        if(dom.style.display=='none'){
-            dom.style.display='block';
-        }
-        else if(dom.style.display=='block'){
-           dom.style.display='none'; 
-        }
-         // isOut = false;
-    }
-}
 //form2验证
-function validForm(){
-   var stp=document.getElementById('signUp');
-   document.form2.user_name.onblur=function(){
+function validForm2(){
+   var stp=$("signUp");
+   $("#user_name").blur(function(){
         var uName=document.form2.user_name;
         if(!userName(uName)){
             stp.disabled = true;
         }
-   }
-   document.form2.user_email.onblur=function(){
+   });
+   $("#user_email").blur(function(){
        var uEmail=document.form2.user_email;
         useremail(uEmail);
-   }
-   $('pwd1').onblur=function(){
-        var pwd=$('pwd1');
+   });
+   $("#pwd1").blur(function(){
+        var pwd=document.getElementById('pwd1');
         if(!userpassword(pwd)){
             stp.disabled = true;
         }
-   }
-   $('pwd2').onblur=function(){
-        var pwd=$('pwd2');
+   });
+   $("#pwd2").blur(function(){
+        var pwd=document.getElementById('pwd2');
         if(!userpassword(pwd)){
             stp.disabled = true;
         }
-   }
-   $('pwd2').onkeyup=function(){
+   });
+   $("#pwd2").keyup(function(){
         if(pwdIsSame()){
            stp.disabled = true;
         }
-   }
+   });
    return ;
 }
 function userName(uName){
@@ -227,8 +157,8 @@ function validate(){
     else return true;
 }
 function pwdIsSame(){
-    var pw1 = document.getElementById("pwd1").value;
-    var pw2 = document.getElementById("pwd2").value;
+    var pw1= $("#pwd1").value;
+    var pw2 = $("#pwd2").value;
     if((pw1 == pw2)&&(pwd2.nextSibling.className=="msg")) {
         pwd2.nextSibling.innerHTML="密码确认成功！";
     }
@@ -236,6 +166,3 @@ function pwdIsSame(){
         pwd2.nextSibling.innerHTML="两次密码不相同！";
     }
 }
-addLoadEvent(Tab);
-addLoadEvent(searchBox);
-addLoadEvent(validForm);

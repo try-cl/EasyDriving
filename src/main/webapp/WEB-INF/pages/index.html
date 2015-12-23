@@ -3,10 +3,10 @@
     <head>
         <title>轻松驾</title>
         <meta charset="utf-8">
+        <script src="js/jquery-2.1.4.js" charset="utf-8"></script>
         <link type="text/css" rel="stylesheet" media="screen and (min-width: 768px)" href="css/style.css">
         <link type="text/css" rel="stylesheet" media="screen and (min-width: 768px)" href="css/index.css">
-     <!--    <script type="text/javascript" src="js/jquery-1.11.3.min.js" charset="utf-8"></script> -->
-        <script src="js/validForms.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/validForms.js" charset="utf-8"></script>
         <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
     </head>
     <body>
@@ -53,16 +53,16 @@
                             </ul>
                             <div class="tab_warp">
                                <div class="box">
-                                   <form name="form2" method="post">
-                                       <input type="text" name="user_name" value="" placeholder="用户名">
-                                       <input type="text" name="user_email" value="" placeholder="邮箱">
+                                   <form name="form2" method="post" id="form2">
+                                       <input type="text" name="user_name" value="" id="user_name" placeholder="用户名">
+                                       <input type="text" name="user_email" value="" id="user_email" placeholder="邮箱">
                                        <input type="password" name="user_password" id="pwd1" value="" placeholder="设置密码">
                                        <input type="password" name="user_password" id="pwd2" value="" placeholder="确定密码">
-                                       <input type="submit" id="signUp" name="submit" value="免费注册">
+                                       <input type="button" id="signUp" name="submit" value="免费注册">
                                    </form>
                                 </div>
                                 <!-- sign up-end  -->
-                                <form class="box" name="form3">
+                                <form class="box" name="form3" style="display:none">
                                         <input type="text" name="user_name" placeholder="用户名">
                                         <input type="password" name="user_password" placeholder="密码">
                                         <div class="safe">
@@ -74,7 +74,7 @@
                                             </span>
                                         </div>
                                         <!-- ./safe -->
-                                        <input type="submit" name="submit" value="登录">
+                                        <input type="button" name="submit" value="登录">
                                 </form>
                                 <!-- sign in-end  -->
                             </div>
