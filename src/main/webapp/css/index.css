@@ -2,7 +2,7 @@
 * @Author: anchen
 * @Date:   2015-12-12 19:15:21
 * @Last Modified by:   anchen
-* @Last Modified time: 2015-12-16 22:38:54
+* @Last Modified time: 2015-12-17 23:02:11
 */
 /*banner*/
 .head_banner{
@@ -81,11 +81,11 @@
 #tab .box {
     padding:20px;
     overflow: hidden;
-    display:none;
+   /* display:none;*/
 }
 #tab input[type="text"],
 #tab input[type="password"],
-#tab input[type="submit"],
+#tab input[type="button"],
 .login_btn{
     width:100%;
     height:35px;
@@ -113,7 +113,7 @@
     padding-left: 20px;
     cursor: pointer;
 }
-#tab input[type="submit"],
+#tab input[type="button"],
 .login_btn{
     margin-top:10px;
 

@@ -33,21 +33,22 @@ public class UserController {
     @RequestMapping("")
     public String getRegister(){
 
-        return "register";
+        return "index";
     }
 
     @RequestMapping(value = "regist",method = RequestMethod.POST)
-    public @ResponseBody JSONObject doRegist(@RequestParam String u_email,@RequestParam String u_name,@RequestParam String u_password) throws IOException {
+    public @ResponseBody String doRegist(@RequestParam String u_email,@RequestParam String u_name,@RequestParam String u_password) throws IOException {
+        System.out.println(u_email);
         JSONObject jsonObject = new JSONObject();
         if (userService.emailIsEqual(u_email)!=0){
             jsonObject.put("result", "email");
             System.out.println(jsonObject.toString());
-            return jsonObject;
+            return jsonObject.toString();
         }
         if(userService.nameIsEqual(u_name)!=0) {
             jsonObject.put("result","name");
             System.out.println(jsonObject.toString());
-            return jsonObject;
+            return jsonObject.toString();
         }
         Random random = new Random();
         String str = String.valueOf(random.nextInt());
@@ -63,12 +64,13 @@ public class UserController {
         jsonObject.put("result", "success");
         MailSend.SendMail(u_email,u_name,str);
         System.out.println(jsonObject.toString());
-        return jsonObject;
+        return jsonObject.toString();
     }
+
 
     //注册邮箱验证
     @RequestMapping("vefiryemail")
-    public @ResponseBody JSONObject doValidate(@RequestParam String name,@RequestParam String acticode) throws IOException {
+    public @ResponseBody String doValidate(@RequestParam String name,@RequestParam String acticode) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String u_acticode = userService.getActicode(name);
         if (u_acticode.equals(acticode)){
@@ -78,11 +80,11 @@ public class UserController {
             jsonObject.put("result","fail");
         }
         System.out.println(jsonObject.toString());
-        return jsonObject;
+        return jsonObject.toString();
     }
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public @ResponseBody JSONObject doLogin(@RequestParam String u_email,@RequestParam String u_password,HttpSession session) throws IOException {
+    public @ResponseBody String doLogin(@RequestParam String u_email,@RequestParam String u_password,HttpSession session) throws IOException {
         JSONObject jsonObject = new JSONObject();
         if(userService.doLogin(u_email,u_password)==1){
             session.setAttribute("u_flag","on");
@@ -94,7 +96,7 @@ public class UserController {
         }
         System.out.println(jsonObject.toString());
 
-        return jsonObject;
+        return jsonObject.toString();
     }
 
     //生成验证码
@@ -111,13 +113,13 @@ public class UserController {
         HttpSession session = request.getSession(true);
         session.setAttribute("rand", verifyCode.toLowerCase());
         //生成图片
-        int w = 200, h = 80;
+        int w = 100, h = 80;
         VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode);
 
     }
 
     @RequestMapping(value = "forgetpassword",method = RequestMethod.POST)
-    public @ResponseBody JSONObject forgetPassword(HttpSession session,@RequestParam String u_email) throws IOException {
+    public @ResponseBody String forgetPassword(HttpSession session,@RequestParam String u_email) throws IOException {
         JSONObject jsonObject = new JSONObject();
         if (userService.exitEmail(u_email)==0){
             jsonObject.put("result","fail");
@@ -131,11 +133,11 @@ public class UserController {
             userService.setFacticode(u_email,str);
         }
         System.out.println(jsonObject);
-        return jsonObject;
+        return jsonObject.toString();
     }
 
     @RequestMapping("verifyfpassword")
-    public @ResponseBody JSONObject verifyFpassword(@RequestParam String u_email,@RequestParam String u_facticode) throws IOException {
+    public @ResponseBody String verifyFpassword(@RequestParam String u_email,@RequestParam String u_facticode) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String fcticode = userService.getFacticode(u_email);
         if (fcticode.equals(u_facticode)){
@@ -146,24 +148,23 @@ public class UserController {
         }
         System.out.println(jsonObject);
 
-        return jsonObject;
+        return jsonObject.toString();
     }
 
     @RequestMapping("setpassword")
-    public @ResponseBody JSONObject setPassword(HttpServletRequest request,@RequestParam String u_password) throws IOException {
+    public @ResponseBody String setPassword(HttpServletRequest request,@RequestParam String u_password) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String u_email = (String) request.getSession().getAttribute("u_email");
         userService.setPassword(u_email,u_password);
         jsonObject.put("result","success");
-
-        return jsonObject;
+        return jsonObject.toString();
     }
 
     @RequestMapping(value = "getuserinfo",method = RequestMethod.POST)
-    public @ResponseBody JSONObject getUserInfo(){
+    public @ResponseBody String getUserInfo(){
         JSONObject jsonObject = new JSONObject();
 
-        return jsonObject;
+        return jsonObject.toString();
     }
 
 }

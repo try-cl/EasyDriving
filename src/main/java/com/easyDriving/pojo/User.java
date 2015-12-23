@@ -15,7 +15,24 @@ public class User {
     private String u_password;
     private String u_state;//用户是否激活
     private String u_acticode;//随机激活码
+    private String u_forget;//用户忘记密码验证标志
+    private String u_facticode;//忘记密码的随机码
 
+    public String getU_forget() {
+        return u_forget;
+    }
+
+    public void setU_forget(String u_forget) {
+        this.u_forget = u_forget;
+    }
+
+    public String getU_facticode() {
+        return u_facticode;
+    }
+
+    public void setU_facticode(String u_facticode) {
+        this.u_facticode = u_facticode;
+    }
 
     public String getU_state() {
         return u_state;
