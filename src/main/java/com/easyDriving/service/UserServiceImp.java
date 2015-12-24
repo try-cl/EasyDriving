@@ -64,8 +64,8 @@ public class UserServiceImp implements UserService{
 
     //验证邮箱成功,修改标志位
     @Override
-    public void modifyState() throws IOException {
-        userDao.modifyState();
+    public void modifyState(String u_name) throws IOException {
+        userDao.modifyState(u_name);
     }
 
     //密码忘记,验证邮箱成功,修改标志位

@@ -26,8 +26,8 @@ public interface UserMapper {
     public String getActicode(String u_name);
 
     //验证邮箱成功,修改标志位
-    @Update("update user set u_state = '1' ")
-    public void modifyState();
+    @Update("update user set u_state = '1' where u_name=#{u_name} ")
+    public void modifyState(String u_name);
 
     //验证登录
     @Select("select count(u_id) from user where u_email=#{u_email} and u_password = #{u_password}")

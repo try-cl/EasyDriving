@@ -112,11 +112,12 @@ public class UserDaoImp implements UserDao{
 
     //验证邮箱成功,修改标志位
     @Override
-    public void modifyState() throws IOException {
+    public void modifyState(String u_name) throws IOException {
         SqlSession sqlSession = MybatisUtils.getSession();
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            userMapper.modifyState();
+            userMapper.modifyState(u_name);
+            sqlSession.commit();
         }finally {
             sqlSession.close();
         }
@@ -129,6 +130,7 @@ public class UserDaoImp implements UserDao{
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             userMapper.modifyForget();
+            sqlSession.commit();
         }finally {
             sqlSession.close();
         }
@@ -141,6 +143,7 @@ public class UserDaoImp implements UserDao{
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             userMapper.setPassword(u_email,u_password);
+            sqlSession.commit();
         }finally {
             sqlSession.close();
         }

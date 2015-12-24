@@ -28,7 +28,7 @@ public interface UserDao {
     public String getFacticode(String u_email) throws IOException;
 
     //验证邮箱成功,修改标志位
-    public void modifyState() throws IOException;
+    public void modifyState(String u_name) throws IOException;
 
     //密码忘记,验证邮箱成功,修改标志位
     public void modifyForget() throws IOException;

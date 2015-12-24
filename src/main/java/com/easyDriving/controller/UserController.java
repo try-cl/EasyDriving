@@ -30,12 +30,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("")
-    public String getRegister(){
-
-        return "index";
-    }
-
     @RequestMapping(value = "regist",method = RequestMethod.POST)
     public @ResponseBody String doRegist(@RequestParam String u_email,@RequestParam String u_name,@RequestParam String u_password) throws IOException {
         System.out.println(u_email);
@@ -73,16 +67,22 @@ public class UserController {
     public @ResponseBody String doValidate(@RequestParam String name,@RequestParam String acticode) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String u_acticode = userService.getActicode(name);
-        if (u_acticode.equals(acticode)){
-            userService.modifyState();
-            jsonObject.put("result","success");
+        if(u_acticode==null){
+            //如果已经验证过
+            jsonObject.put("result","done");
         }else {
-            jsonObject.put("result","fail");
+            //没有验证过
+            if (u_acticode.equals(acticode)){
+                    jsonObject.put("result", "success");
+            }else {
+                jsonObject.put("result","fail");
+            }
         }
         System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
 
+    //登录
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public @ResponseBody String doLogin(@RequestParam String u_email,@RequestParam String u_password,HttpSession session) throws IOException {
         JSONObject jsonObject = new JSONObject();
@@ -140,14 +140,17 @@ public class UserController {
     public @ResponseBody String verifyFpassword(@RequestParam String u_email,@RequestParam String u_facticode) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String fcticode = userService.getFacticode(u_email);
-        if (fcticode.equals(u_facticode)){
-            userService.modifyForget();
-            jsonObject.put("result","success");
+        if(fcticode==null){
+            jsonObject.put("result","done");
         }else {
-            jsonObject.put("result","fail");
+            if (fcticode.equals(u_facticode)){
+                userService.modifyForget();
+                jsonObject.put("result","success");
+            }else {
+                jsonObject.put("result","fail");
+            }
         }
         System.out.println(jsonObject);
-
         return jsonObject.toString();
     }
 
