@@ -30,18 +30,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //注册
     @RequestMapping(value = "regist",method = RequestMethod.POST)
     public @ResponseBody String doRegist(@RequestParam String u_email,@RequestParam String u_name,@RequestParam String u_password) throws IOException {
-        System.out.println(u_email);
         JSONObject jsonObject = new JSONObject();
         if (userService.emailIsEqual(u_email)!=0){
             jsonObject.put("result", "email");
-            System.out.println(jsonObject.toString());
+           // System.out.println(jsonObject.toString());
             return jsonObject.toString();
         }
         if(userService.nameIsEqual(u_name)!=0) {
             jsonObject.put("result","name");
-            System.out.println(jsonObject.toString());
+           // System.out.println(jsonObject.toString());
             return jsonObject.toString();
         }
         Random random = new Random();
@@ -57,7 +57,7 @@ public class UserController {
         userService.insertUser(user);
         jsonObject.put("result", "success");
         MailSend.SendMail(u_email,u_name,str);
-        System.out.println(jsonObject.toString());
+     //   System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
 
@@ -78,7 +78,7 @@ public class UserController {
                 jsonObject.put("result","fail");
             }
         }
-        System.out.println(jsonObject.toString());
+       // System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
 
@@ -94,7 +94,7 @@ public class UserController {
         }else {
             jsonObject.put("result","fail");
         }
-        System.out.println(jsonObject.toString());
+      //  System.out.println(jsonObject.toString());
 
         return jsonObject.toString();
     }
@@ -118,6 +118,7 @@ public class UserController {
 
     }
 
+    //忘记密码
     @RequestMapping(value = "forgetpassword",method = RequestMethod.POST)
     public @ResponseBody String forgetPassword(HttpSession session,@RequestParam String u_email) throws IOException {
         JSONObject jsonObject = new JSONObject();
@@ -132,10 +133,11 @@ public class UserController {
             MailSend.SendMail(u_email, str);
             userService.setFacticode(u_email,str);
         }
-        System.out.println(jsonObject);
+      //  System.out.println(jsonObject);
         return jsonObject.toString();
     }
 
+    //忘记密码，验证邮箱
     @RequestMapping("verifyfpassword")
     public @ResponseBody String verifyFpassword(@RequestParam String u_email,@RequestParam String u_facticode) throws IOException {
         JSONObject jsonObject = new JSONObject();
@@ -150,10 +152,11 @@ public class UserController {
                 jsonObject.put("result","fail");
             }
         }
-        System.out.println(jsonObject);
+       // System.out.println(jsonObject);
         return jsonObject.toString();
     }
 
+    //设置密码
     @RequestMapping("setpassword")
     public @ResponseBody String setPassword(HttpServletRequest request,@RequestParam String u_password) throws IOException {
         JSONObject jsonObject = new JSONObject();
