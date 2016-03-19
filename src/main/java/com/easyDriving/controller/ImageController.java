@@ -9,4 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("image")
 public class ImageController {
+    @RequestMapping("maxid")
+    public String getMaxid(){
+
+        return "";
+    }
 }

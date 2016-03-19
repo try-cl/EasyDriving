@@ -34,30 +34,33 @@ public class UserController {
     @RequestMapping(value = "regist",method = RequestMethod.POST)
     public @ResponseBody String doRegist(@RequestParam String u_email,@RequestParam String u_name,@RequestParam String u_password) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        if (userService.emailIsEqual(u_email)!=0){
-            jsonObject.put("result", "email");
-           // System.out.println(jsonObject.toString());
-            return jsonObject.toString();
+        //注册同步
+        synchronized (UserService.class){
+            if (userService.emailIsEqual(u_email)!=0){
+                jsonObject.put("result", "email");
+                // System.out.println(jsonObject.toString());
+                return jsonObject.toString();
+            }
+            if(userService.nameIsEqual(u_name)!=0) {
+                jsonObject.put("result","name");
+                // System.out.println(jsonObject.toString());
+                return jsonObject.toString();
+            }
+            Random random = new Random();
+            String str = String.valueOf(random.nextInt());
+            str = Md5.getMd5(str);
+            User user = new User();
+            user.setU_flag("0");
+            user.setU_state("0");
+            user.setU_email(u_email);
+            user.setU_name(u_name);
+            user.setU_password(u_password);
+            user.setU_acticode(str);
+            userService.insertUser(user);
+            jsonObject.put("result", "success");
+            MailSend.SendMail(u_email,u_name,str);
         }
-        if(userService.nameIsEqual(u_name)!=0) {
-            jsonObject.put("result","name");
-           // System.out.println(jsonObject.toString());
-            return jsonObject.toString();
-        }
-        Random random = new Random();
-        String str = String.valueOf(random.nextInt());
-        str = Md5.getMd5(str);
-        User user = new User();
-        user.setU_flag("0");
-        user.setU_state("0");
-        user.setU_email(u_email);
-        user.setU_name(u_name);
-        user.setU_password(u_password);
-        user.setU_acticode(str);
-        userService.insertUser(user);
-        jsonObject.put("result", "success");
-        MailSend.SendMail(u_email,u_name,str);
-     //   System.out.println(jsonObject.toString());
+        System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
 
