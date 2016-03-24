@@ -5,7 +5,7 @@ package com.easyDriving.pojo;
  */
 public class Subject {
     private int s_id;//自增
-    private String s_title;
+  //  private String s_title;
     private String s_content;
     private String answer;
     private String answer_a;
@@ -15,6 +15,15 @@ public class Subject {
     private String s_chapter;//章节
     private String s_type;//科目
     private String s_image;
+    private String s_analyze;//解析
+
+    public String getS_analyze() {
+        return s_analyze;
+    }
+
+    public void setS_analyze(String s_analyze) {
+        this.s_analyze = s_analyze;
+    }
 
     public int getS_id() {
         return s_id;
@@ -24,13 +33,13 @@ public class Subject {
         this.s_id = s_id;
     }
 
-    public String getS_title() {
-        return s_title;
-    }
-
-    public void setS_title(String s_title) {
-        this.s_title = s_title;
-    }
+//    public String getS_title() {
+//        return s_title;
+//    }
+//
+//    public void setS_title(String s_title) {
+//        this.s_title = s_title;
+//    }
 
     public String getS_content() {
         return s_content;

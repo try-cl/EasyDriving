@@ -30,39 +30,36 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("")
-    public String getRegister(){
-
-        return "index";
-    }
-
+    //注册
     @RequestMapping(value = "regist",method = RequestMethod.POST)
     public @ResponseBody String doRegist(@RequestParam String u_email,@RequestParam String u_name,@RequestParam String u_password) throws IOException {
-        System.out.println(u_email);
         JSONObject jsonObject = new JSONObject();
-        if (userService.emailIsEqual(u_email)!=0){
-            jsonObject.put("result", "email");
-            System.out.println(jsonObject.toString());
-            return jsonObject.toString();
+        //注册同步
+        synchronized (UserService.class){
+            if (userService.emailIsEqual(u_email)!=0){
+                jsonObject.put("result", "email");
+                // System.out.println(jsonObject.toString());
+                return jsonObject.toString();
+            }
+            if(userService.nameIsEqual(u_name)!=0) {
+                jsonObject.put("result","name");
+                // System.out.println(jsonObject.toString());
+                return jsonObject.toString();
+            }
+            Random random = new Random();
+            String str = String.valueOf(random.nextInt());
+            str = Md5.getMd5(str);
+            User user = new User();
+            user.setU_flag("0");
+            user.setU_state("0");
+            user.setU_email(u_email);
+            user.setU_name(u_name);
+            user.setU_password(u_password);
+            user.setU_acticode(str);
+            userService.insertUser(user);
+            jsonObject.put("result", "success");
+            MailSend.SendMail(u_email,u_name,str);
         }
-        if(userService.nameIsEqual(u_name)!=0) {
-            jsonObject.put("result","name");
-            System.out.println(jsonObject.toString());
-            return jsonObject.toString();
-        }
-        Random random = new Random();
-        String str = String.valueOf(random.nextInt());
-        str = Md5.getMd5(str);
-        User user = new User();
-        user.setU_flag("0");
-        user.setU_state("0");
-        user.setU_email(u_email);
-        user.setU_name(u_name);
-        user.setU_password(u_password);
-        user.setU_acticode(str);
-        userService.insertUser(user);
-        jsonObject.put("result", "success");
-        MailSend.SendMail(u_email,u_name,str);
         System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
@@ -73,16 +70,22 @@ public class UserController {
     public @ResponseBody String doValidate(@RequestParam String name,@RequestParam String acticode) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String u_acticode = userService.getActicode(name);
-        if (u_acticode.equals(acticode)){
-            userService.modifyState();
-            jsonObject.put("result","success");
+        if(u_acticode==null){
+            //如果已经验证过
+            jsonObject.put("result","done");
         }else {
-            jsonObject.put("result","fail");
+            //没有验证过
+            if (u_acticode.equals(acticode)){
+                    jsonObject.put("result", "success");
+            }else {
+                jsonObject.put("result","fail");
+            }
         }
-        System.out.println(jsonObject.toString());
+       // System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
 
+    //登录
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public @ResponseBody String doLogin(@RequestParam String u_email,@RequestParam String u_password,HttpSession session) throws IOException {
         JSONObject jsonObject = new JSONObject();
@@ -94,7 +97,7 @@ public class UserController {
         }else {
             jsonObject.put("result","fail");
         }
-        System.out.println(jsonObject.toString());
+      //  System.out.println(jsonObject.toString());
 
         return jsonObject.toString();
     }
@@ -118,6 +121,7 @@ public class UserController {
 
     }
 
+    //忘记密码
     @RequestMapping(value = "forgetpassword",method = RequestMethod.POST)
     public @ResponseBody String forgetPassword(HttpSession session,@RequestParam String u_email) throws IOException {
         JSONObject jsonObject = new JSONObject();
@@ -132,25 +136,30 @@ public class UserController {
             MailSend.SendMail(u_email, str);
             userService.setFacticode(u_email,str);
         }
-        System.out.println(jsonObject);
+      //  System.out.println(jsonObject);
         return jsonObject.toString();
     }
 
+    //忘记密码，验证邮箱
     @RequestMapping("verifyfpassword")
     public @ResponseBody String verifyFpassword(@RequestParam String u_email,@RequestParam String u_facticode) throws IOException {
         JSONObject jsonObject = new JSONObject();
         String fcticode = userService.getFacticode(u_email);
-        if (fcticode.equals(u_facticode)){
-            userService.modifyForget();
-            jsonObject.put("result","success");
+        if(fcticode==null){
+            jsonObject.put("result","done");
         }else {
-            jsonObject.put("result","fail");
+            if (fcticode.equals(u_facticode)){
+                userService.modifyForget();
+                jsonObject.put("result","success");
+            }else {
+                jsonObject.put("result","fail");
+            }
         }
-        System.out.println(jsonObject);
-
+       // System.out.println(jsonObject);
         return jsonObject.toString();
     }
 
+    //设置密码
     @RequestMapping("setpassword")
     public @ResponseBody String setPassword(HttpServletRequest request,@RequestParam String u_password) throws IOException {
         JSONObject jsonObject = new JSONObject();
